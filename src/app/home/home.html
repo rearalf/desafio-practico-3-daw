@@ -1,2 +1,54 @@
-<h1>Bienvenido a la página de inicio</h1>
-<p>Esta es la vista principal de Home.</p>
+<main class="container-fluid py-5 bg-light">
+    <div class="container">
+        <div class="row g-4 product-grid-row">
+
+            <!-- Loading -->
+            <ng-container *ngIf="loading">
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <p class="mt-2">Cargando productos...</p>
+                </div>
+            </ng-container>
+
+            <!-- Error -->
+            <ng-container *ngIf="!loading && error">
+                <div class="col-12 alert alert-danger text-center">
+                    {{ error }}
+                </div>
+            </ng-container>
+
+            <!-- Productos -->
+            <ng-container *ngIf="!loading && !error">
+                <ng-container *ngIf="products.length > 0; else noProducts">
+                    <ng-container *ngFor="let item of products;">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                            <div class="card h-100 shadow-sm border-0">
+                                <img [src]="item.image" alt="{{ item.title }}"
+                                    class="card-img-top product-img-placeholder"
+                                    style="max-height:200px;object-fit:contain;" />
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="card-title fw-bold m-0">{{ item.title }}</h6>
+                                        <span class="fs-4 fw-bold">${{ item.price }}</span>
+                                    </div>
+                                    <p class="card-text text-muted small">{{ item.description }}</p>
+                                    <div class="d-flex justify-content-between pt-2">
+                                        <button class="btn btn-outline-secondary btn-sm custom-btn-outline">Vista
+                                            Rápida</button>
+                                        <button class="btn btn-dark btn-sm custom-btn-dark">DETALLES</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <ng-template #noProducts>
+                    <div class="col-12 alert alert-info">No se encontraron productos disponibles.</div>
+                </ng-template>
+            </ng-container>
+
+        </div>
+    </div>
+</main>
