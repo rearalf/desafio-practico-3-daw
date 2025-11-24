@@ -2,7 +2,7 @@
     <div class="cart-modal-content shadow">
 
         <!-- Botón cerrar -->
-        <button class="close-btn" (click)="cerrar()">&times;</button>
+        <button class="close-btn" (click)="closed()">&times;</button>
 
         <!-- Título -->
         <h4 class="fw-bold mb-4">Carrito de Compra</h4>
@@ -39,8 +39,8 @@
 
             <!-- Botones -->
             <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-outline-secondary px-4" (click)="cerrar()">CERRAR</button>
-                <button class="btn btn-dark px-4">
+                <button class="btn btn-outline-secondary px-4" (click)="closed()">CERRAR</button>
+                <button class="btn btn-dark px-4" (click)="pay()">
                     <i class="bi bi-credit-card"></i> PAGAR
                 </button>
             </div>
