@@ -2,12 +2,13 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../services/products.service';
 import { FormsModule } from '@angular/forms';
+import { ModalDetalleComponent } from "../modal/modal-detalle";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ModalDetalleComponent],
   standalone: true,
 })
 export class HomeComponent {
@@ -18,6 +19,9 @@ export class HomeComponent {
   categories: string[] = ["men's clothing", "women's clothing", 'jewelery', 'electronics'];
   filteredProducts: any[] = [];
   categorySelected: string | undefined = undefined;
+
+  modalVisible: boolean = false;
+  productoSeleccionado: any = null;
 
   private productsService = new ProductsService();
   constructor(private cdr: ChangeDetectorRef) {
@@ -57,5 +61,15 @@ export class HomeComponent {
   filterProducts() {
     const text = this.searchText.toLowerCase();
     this.filteredProducts = this.products.filter((p) => p.title.toLowerCase().includes(text));
+  }
+
+  abrirModal(producto: any) {
+    this.productoSeleccionado = producto;
+    this.modalVisible = true;
+  }
+
+  cerrarModal() {
+    this.modalVisible = false;
+    this.productoSeleccionado = null;
   }
 }

@@ -1,0 +1,35 @@
+<div class="modal-backdrop" *ngIf="visible">
+    <div class="modal-card">
+
+        <button class="close-btn" (click)="cerrar()">&times;</button>
+
+        <!-- Imagen -->
+        <div class="product-image">
+            <img [src]="producto?.image" alt="{{ producto?.title }}" />
+        </div>
+
+        <!-- Título + precio -->
+        <div class="header-row">
+            <h3 class="title">{{ producto?.title }}</h3>
+            <h3 class="price">$ {{ producto?.price }}</h3>
+        </div>
+
+        <!-- Estrellas -->
+        <div class="stars">
+            ★★★★☆
+        </div>
+
+        <!-- Descripción -->
+        <p class="description">{{ producto?.description }}</p>
+
+        <!-- Badge -->
+        <span class="badge">DESCUENTO</span>
+
+        <!-- Botones -->
+        <div class="actions">
+            <button class="btn cancel" (click)="cerrar()">CANCELAR</button>
+            <button class="btn add">AGREGAR</button>
+        </div>
+
+    </div>
+</div>

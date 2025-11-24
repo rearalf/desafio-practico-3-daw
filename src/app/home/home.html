@@ -56,9 +56,10 @@
                                     </div>
                                     <p class="card-text text-muted small">{{ item.description }}</p>
                                     <div class="d-flex justify-content-between pt-2">
-                                        <button class="btn btn-outline-secondary btn-sm custom-btn-outline">Vista
-                                            Rápida</button>
-                                        <button class="btn btn-dark btn-sm custom-btn-dark">DETALLES</button>
+                                        <button class="btn btn-outline-secondary btn-sm custom-btn-outline"
+                                            (click)="abrirModal(item)">Vista Rápida</button>
+                                        <button class="btn btn-dark btn-sm custom-btn-dark"
+                                            (click)="abrirModal(item)">DETALLES</button>
                                     </div>
                                 </div>
                             </div>
@@ -73,3 +74,6 @@
         </div>
     </div>
 </main>
+
+<app-modal-detalle [producto]="productoSeleccionado" [visible]="modalVisible"
+    (close)="cerrarModal()"></app-modal-detalle>
