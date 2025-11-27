@@ -12,11 +12,11 @@ import { ModalDetalleComponent } from "../modal/modal-detalle";
   standalone: true,
 })
 export class HomeComponent {
-  searchText: string = '';
-  products: any[] = [];
+  searchText: string = ''; //texto para realizar busqueda de producto
+  products: any[] = [];  //lista de productos obtenidos 
   loading = true;
   error: string | null = null;
-  categories: string[] = ["men's clothing", "women's clothing", 'jewelery', 'electronics'];
+  categories: string[] = ["men's clothing", "women's clothing", 'jewelery', 'electronics']; //categorias para filtrar productos
   filteredProducts: any[] = [];
   categorySelected: string | undefined = undefined;
 
@@ -28,16 +28,20 @@ export class HomeComponent {
     this.fetchProducts();
   }
 
+  //obtener los productos del servicio
   async fetchProducts() {
     this.loading = true;
     this.error = null;
-    try {
+
+    //llama a los productos
+    try { 
       this.products = await this.productsService.getProducts();
-      this.filteredProducts = this.products;
+      this.filteredProducts = this.products; 
     } catch (err: any) {
       this.error = 'Error al cargar productos';
-    } finally {
-      this.loading = false;
+    } //finaliza la carga y actualiza
+      finally {
+      this.loading = false; 
       this.cdr.detectChanges();
     }
   }
@@ -58,6 +62,7 @@ export class HomeComponent {
     }
   }
 
+  //filtra los productos segun el texto de busqueda
   filterProducts() {
     const text = this.searchText.toLowerCase();
     this.filteredProducts = this.products.filter((p) => p.title.toLowerCase().includes(text));

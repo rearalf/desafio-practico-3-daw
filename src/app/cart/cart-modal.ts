@@ -12,10 +12,11 @@ import Swal from 'sweetalert2';
 })
 export class CartModalComponent {
   @Output() close = new EventEmitter<void>();
-  cart: any[] = [];
-  total: number = 0;
+  cart: any[] = []; //listado de los productos agregados
+  total: number = 0; //total calculado
   private cartService = new CartService();
 
+  //carga los productos y calcula el total
   constructor() {
     this.loadCart();
     window.addEventListener('storage', () => this.loadCart());
@@ -30,6 +31,7 @@ export class CartModalComponent {
     this.close.emit();
   }
 
+  //realiza una simulacion de un pago exitoso
   pay() {
     Swal.fire({
       title: 'Transacción exitosa!',
