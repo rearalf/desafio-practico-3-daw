@@ -11,14 +11,14 @@ import { CartService } from '../services/cart.service';
   imports: [CommonModule, CartModalComponent],
 })
 export class NavbarComponent {
-  totalCart: number = 0;
+  totalCart: number = 0; //muestra el total del carrito
   itemCount: number = 0;
   private cartService = new CartService();
 
   cartModalVisible: boolean = false;
 
   constructor() {
-    this.updateCartInfo();
+    this.updateCartInfo(); //actualiza la informacion del carrito
   }
   abrirCartModal() {
     this.cartModalVisible = true;
@@ -28,6 +28,7 @@ export class NavbarComponent {
     this.cartModalVisible = false;
   }
 
+  //obtiene los productos y calcula el total de ellos
   updateCartInfo() {
     const cart = this.cartService.getCart();
     this.totalCart = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);

@@ -10,16 +10,16 @@ import { CartService } from '../services/cart.service';
   imports: [CommonModule],
 })
 export class ModalDetalleComponent {
-  @Input() producto: any;
-  @Input() visible: boolean = false;
+  @Input() producto: any; //recibe el producto seleccionado
+  @Input() visible: boolean = false; //controla si el modal se muestra o se oculta
   @Output() close = new EventEmitter<void>();
 
-  private cartService = new CartService();
+  private cartService = new CartService(); //agrega los productos al carrito
 
   cerrar() {
     this.close.emit();
   }
-
+   //verifica el producto que ha sido cargado
   addToCart() {
     if (this.producto) {
       this.cartService.addToCart({ ...this.producto });

@@ -1,22 +1,26 @@
+//Clave para guardar y recuperar el carrito
 export class CartService {
   private storageKey = 'cart';
 
+  //obtine el carrito
   getCart(): any[] {
     const cart = localStorage.getItem(this.storageKey);
     return cart ? JSON.parse(cart) : [];
   }
 
+  //agrega los productos al carrito
   addToCart(product: any): void {
     const cart = this.getCart();
-    const existing = cart.find((item: any) => item.id === product.id);
+    const existing = cart.find((item: any) => item.id === product.id); //busca si existe el producto en el carrito
     if (existing) {
-      existing.quantity = (existing.quantity || 1) + 1;
+      existing.quantity = (existing.quantity || 1) + 1; //aumenta la cantidad 
     } else {
-      cart.push({ ...product, quantity: 1 });
+      cart.push({ ...product, quantity: 1 }); //lo agrega al carrito
     }
-    localStorage.setItem(this.storageKey, JSON.stringify(cart));
+    localStorage.setItem(this.storageKey, JSON.stringify(cart)); //guarda el carrito
   }
-
+  
+  //elimina del carrito el producto por ID
   removeFromCart(productId: number): void {
     let cart = this.getCart();
     cart = cart.filter((item: any) => item.id !== productId);
@@ -26,7 +30,8 @@ export class CartService {
   clearCart(): void {
     localStorage.removeItem(this.storageKey);
   }
-
+  
+  //actualiza la cantidad de un producto
   updateQuantity(productId: number, quantity: number): void {
     const cart = this.getCart();
     const item = cart.find((item: any) => item.id === productId);

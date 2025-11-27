@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+//obtiene los productos de la API
 export class ProductsService {
   async getProducts(category?: string) {
     const uri =
