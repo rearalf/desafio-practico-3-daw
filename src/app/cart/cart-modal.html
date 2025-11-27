@@ -19,6 +19,7 @@
                             <th>PRECIO</th>
                             <th>CANTIDAD</th>
                             <th>SUB TOTAL</th>
+                            <th>ELIMINAR</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,6 +28,9 @@
                             <td>${{ item.price }}</td>
                             <td>{{ item.quantity }}</td>
                             <td>${{ item.price * item.quantity }}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" (click)="removeOne(item.id)">-</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

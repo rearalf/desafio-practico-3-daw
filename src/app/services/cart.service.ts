@@ -40,4 +40,17 @@ export class CartService {
       localStorage.setItem(this.storageKey, JSON.stringify(cart));
     }
   }
+
+    // Elimina una cantidad específica de un producto y lo elimina si la cantidad llega a cero
+    removeProductQuantity(productId: number, quantity: number): void {
+      const cart = this.getCart();
+      const itemIndex = cart.findIndex((item: any) => item.id === productId);
+      if (itemIndex !== -1) {
+        cart[itemIndex].quantity -= quantity;
+        if (cart[itemIndex].quantity <= 0) {
+          cart.splice(itemIndex, 1); // Elimina el producto del carrito
+        }
+        localStorage.setItem(this.storageKey, JSON.stringify(cart));
+      }
+    }
 }

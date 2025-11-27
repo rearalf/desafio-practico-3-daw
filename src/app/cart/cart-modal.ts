@@ -1,7 +1,13 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartService } from '../services/cart.service';
 import Swal from 'sweetalert2';
+
+import { CartService } from '../services/cart.service';
+
+/**
+ * El modal del carrito de compras.
+ * Visualizar los productos agregados, calcular el total.
+ */
 
 @Component({
   selector: 'app-cart-modal',
@@ -11,27 +17,36 @@ import Swal from 'sweetalert2';
   imports: [CommonModule],
 })
 export class CartModalComponent {
+  // Emite un evento al componente padre para solicitar el cierre del modal.
   @Output() close = new EventEmitter<void>();
-  cart: any[] = []; //listado de los productos agregados
-  total: number = 0; //total calculado
+  // Lista de los productos agregados al carrito.
+  cart: any[] = [];
+  // Total de la compra.
+  total: number = 0;
+  // Inyección de dependencia del servicio de carrito.
   private cartService = new CartService();
 
-  //carga los productos y calcula el total
+  /**
+   * Carga los productos del carrito al inicializar y suscribe a eventos de 'storage'
+   * para recargar el carrito si hay cambios en el almacenamiento local desde otra pestaña/ventana.
+   */
   constructor() {
     this.loadCart();
     window.addEventListener('storage', () => this.loadCart());
   }
 
+  // Carga los productos del servicio de carrito y calcula el total de la compra.
   loadCart() {
     this.cart = this.cartService.getCart();
     this.total = this.cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
   }
 
+  // Emite el evento 'close' para que el componente padre lo gestione.
   closed() {
     this.close.emit();
   }
 
-  //realiza una simulacion de un pago exitoso
+  // Muestra una notificación de éxito y cierra el modal.
   pay() {
     Swal.fire({
       title: 'Transacción exitosa!',
@@ -41,5 +56,11 @@ export class CartModalComponent {
       showConfirmButton: false,
     });
     this.closed();
+  }
+
+  // Elimina una unidad de un producto específico del carrito.
+  removeOne(productId: number) {
+    this.cartService.removeProductQuantity(productId, 1);
+    this.loadCart();
   }
 }

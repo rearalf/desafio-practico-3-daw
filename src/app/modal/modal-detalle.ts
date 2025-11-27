@@ -2,6 +2,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../services/cart.service';
 
+/**
+ * Muestra la información detallada de un producto seleccionado y permite agregarlo al carrito.
+ */
 @Component({
   selector: 'app-modal-detalle',
   templateUrl: './modal-detalle.html',
@@ -10,16 +13,19 @@ import { CartService } from '../services/cart.service';
   imports: [CommonModule],
 })
 export class ModalDetalleComponent {
-  @Input() producto: any; //recibe el producto seleccionado
-  @Input() visible: boolean = false; //controla si el modal se muestra o se oculta
+  // Propiedad de entrada que recibe el objeto del producto seleccionado a mostrar en el modal.
+  @Input() producto: any;
+  // Propiedad de entrada que controla la visibilidad del modal.
+  @Input() visible: boolean = false;
+  // Emite un evento al componente padre.
   @Output() close = new EventEmitter<void>();
-
-  private cartService = new CartService(); //agrega los productos al carrito
+  // Instancia del servicio de carrito para gestionar la adición de productos.
+  private cartService = new CartService();
 
   cerrar() {
     this.close.emit();
   }
-   //verifica el producto que ha sido cargado
+  //verifica el producto que ha sido cargado
   addToCart() {
     if (this.producto) {
       this.cartService.addToCart({ ...this.producto });

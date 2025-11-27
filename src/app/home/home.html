@@ -3,7 +3,7 @@
 
         <div class="row align-items-center mb-4">
             <div class="col-12 col-md-6">
-                @if (categorySelected) {
+                @if (categorySelected && categorySelected !== 'undefined') {
                 <h5 class="text-muted fw-normal">Productos de la categoría: {{categorySelected}}</h5>
                 }
             </div>
